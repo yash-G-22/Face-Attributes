@@ -11,7 +11,8 @@ import requests
 app = Flask(__name__, template_folder='templates', static_folder='static')
 CORS(app)
 
-os.makedirs('models', exist_ok=True)MODEL_LOCAL_PATH = Path("models/trained_Model.h5")
+os.makedirs('models', exist_ok=True)
+MODEL_LOCAL_PATH = Path("models/trained_Model.h5")
 MODEL_URL = os.environ.get("MODEL_URL")  # set this on Render if you host model remotely
 K = tf.keras.backend
 

@@ -4,11 +4,15 @@ import tensorflow as tf
 import numpy as np
 import os
 import cv2
+import traceback
+from pathlib import Path
+import requests
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 CORS(app)
 
-os.makedirs('models', exist_ok=True)
+os.makedirs('models', exist_ok=True)MODEL_LOCAL_PATH = Path("models/trained_Model.h5")
+MODEL_URL = os.environ.get("MODEL_URL")  # set this on Render if you host model remotely
 K = tf.keras.backend
 
 def custom_mse(y_true, y_pred):
@@ -16,6 +20,24 @@ def custom_mse(y_true, y_pred):
     loss = (K.sum(loss, axis=1)) / 100.0
     return loss
 
+# If model not present locally and MODEL_URL provided, download it at startup
+if not MODEL_LOCAL_PATH.exists():
+    if MODEL_URL:
+        print("Downloading model from MODEL_URL...")
+        try:
+            MODEL_LOCAL_PATH.parent.mkdir(parents=True, exist_ok=True)
+            with requests.get(MODEL_URL, stream=True, timeout=300) as r:
+                r.raise_for_status()
+                with open(MODEL_LOCAL_PATH, "wb") as f:
+                    for chunk in r.iter_content(chunk_size=8192):
+                        if chunk:
+                            f.write(chunk)
+            print("Model downloaded to", MODEL_LOCAL_PATH)
+        except Exception as e:
+            print("Model download failed:", e)
+    else:
+        print("Model file not found and MODEL_URL not set. Server will start without a model.")
+        
 # Load model
 combined_model = None
 try:

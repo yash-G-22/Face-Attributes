@@ -12,7 +12,7 @@ const successMsg = document.getElementById('successMsg');
 
 // State
 let selectedFile = null;
-const API_URL = 'http://localhost:5000/api/predict';
+const API_URL = 'https://face-attributes.onrender.com/api/predict';
 
 /**
  * Initialize event listeners

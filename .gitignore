@@ -1,0 +1,18 @@
+
+# Python / Virtual Environment
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Data files
+*.csv
+
+# Model files (optional - keep if you want to push models)
+# models/*.h5
+
+# IDE
+.vscode/
+.DS_Store
+Thumbs.db

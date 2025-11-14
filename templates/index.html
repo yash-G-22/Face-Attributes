@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age, Gender & Ethnicity Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Face Attribute Predictor</h1>
+        <p class="subtitle">Upload an image to predict gender, ethnicity, and age</p>
+
+        <div class="upload-section">
+            <div class="upload-box" id="uploadBox">
+                <div class="upload-icon">📷</div>
+                <div class="upload-text">Click to upload or drag and drop</div>
+                <div class="upload-subtext">PNG, JPG, GIF up to 10MB</div>
+                <input type="file" id="imageInput" accept="image/*">
+            </div>
+
+            <div class="image-preview" id="imagePreview">
+                <img id="previewImg" src="" alt="Preview">
+            </div>
+        </div>
+
+        <div class="error" id="errorMsg"></div>
+        <div class="success" id="successMsg"></div>
+
+        <div class="button-group">
+            <button class="predict-btn" id="predictBtn" disabled>🚀 Predict</button>
+            <button class="clear-btn" id="clearBtn">🗑️ Clear</button>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Processing your image...</p>
+        </div>
+
+        <!-- Dynamic results container -->
+        <div class="results" id="results"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
